@@ -45,7 +45,7 @@ jobs:
         id: build
         with:
           push: true
-          path: Dockerfile1
+          file: Dockerfile1
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
