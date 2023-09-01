@@ -1,0 +1,47 @@
+name: Deploy hello world
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        description: image of the image
+        require: true
+      digest:
+        required: true
+        type: string
+        description: digest sha256:xxx
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  gate:
+    permissions:
+      id-token: write # for creating OIDC tokens for signing.
+      packages: write # for uploading attestations.
+    uses: laurentsimon/slsa-policy/.github/workflows/deploy_policy.yml@main
+    with:
+      image: ${{ inputs.image }}
+      digest: ${{ inputs.digest }}
+      registry-username: ${{ github.actor }}
+    secrets:
+      registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+  result:
+    needs: [gate]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run it
+        env:
+          OUTCOME: ${{ needs.gate.outputs.outcome }}
+        run: |
+          echo "result of gate: ${OUTCOME}"

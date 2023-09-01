@@ -3,8 +3,7 @@ name: Build hello world
 on:
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: read-all
 
 defaults:
   run:
