@@ -1,11 +1,11 @@
-name: Deploy hello world
+name: Deploy staging hello world
 
 on:
   workflow_dispatch:
     inputs:
-      name:
+      image:
         type: string
-        description: image of the image
+        description: name of the image
         require: true
       digest:
         required: true
