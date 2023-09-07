@@ -28,11 +28,12 @@ jobs:
     permissions:
       id-token: write # for creating OIDC tokens for signing.
       packages: write # for uploading attestations.
-    uses: laurentsimon/slsa-policy/.github/workflows/deploy_policy.yml@main
+    uses: laurentsimon/slsa-policy/.github/workflows/verify.yml@main
     with:
       image: ${{ inputs.image }}
       digest: ${{ inputs.digest }}
       registry-username: ${{ github.actor }}
+      policy-path: .slsa/policy-staging.yml
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -44,4 +45,5 @@ jobs:
         env:
           OUTCOME: ${{ needs.gate.outputs.outcome }}
         run: |
-          echo "result of gate: ${OUTCOME}"
+          echo "${IMAGE}@${DIGEST}:"
+          echo "> ${OUTCOME}"
