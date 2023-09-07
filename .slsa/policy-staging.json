@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "projects": [
+        {
+            "source": {
+                "uri": "git+https://github.com/test-organization-ls/demo-a"
+            },
+            "image": {
+                "uri": "ghcr://test-organization-ls/demo-a:staging"
+            },
+            "deployment": {
+                "namespace": "staging"
+            }
+        }
+    ]
+}
+
