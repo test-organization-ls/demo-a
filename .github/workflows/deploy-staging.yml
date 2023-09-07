@@ -28,6 +28,7 @@ jobs:
     permissions:
       id-token: write # for creating OIDC tokens for signing.
       packages: write # for uploading attestations.
+      contents: read
     uses: laurentsimon/slsa-policy/.github/workflows/verify.yml@main
     with:
       image: ${{ inputs.image }}
