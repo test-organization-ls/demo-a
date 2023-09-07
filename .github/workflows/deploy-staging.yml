@@ -34,7 +34,7 @@ jobs:
       image: ${{ inputs.image }}
       digest: ${{ inputs.digest }}
       registry-username: ${{ github.actor }}
-      policy-path: .slsa/policy-staging.yml
+      policy-path: .slsa/policy-staging.json
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
 
