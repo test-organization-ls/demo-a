@@ -11,7 +11,7 @@ defaults:
 
 env:
   IMAGE_REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}-hello
 
 jobs:
   build:
@@ -45,9 +45,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8 # v3.0.0
         id: build
+        working-directory: images/hello
         with:
           push: true
-          file: Dockerfile1
+          file: Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -81,7 +82,6 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run it
         env:
           IMAGE: ${{ needs.build.outputs.image }}
