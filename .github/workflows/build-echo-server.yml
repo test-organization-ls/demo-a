@@ -86,8 +86,7 @@ jobs:
           IMAGE: ${{ needs.build.outputs.image }}
           DIGEST: ${{ needs.build.outputs.digest }}
         run: |
-          # We need a timeout because it's a server.
-          timeout 3 docker pull "${IMAGE}@${DIGEST}"
+          docker pull "${IMAGE}@${DIGEST}"
 
           # See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions for log types.
           echo "::warning ${IMAGE}@${DIGEST}"
