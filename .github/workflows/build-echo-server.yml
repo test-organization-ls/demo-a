@@ -1,4 +1,4 @@
-name: Build hello world
+name: Build echo-server
 
 on:
   workflow_dispatch:
