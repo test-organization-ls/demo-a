@@ -47,7 +47,7 @@ jobs:
         id: build
         with:
           push: true
-          context: images/echo-server
+          context: "{{defaultContext}}:images/echo-server"
           file: Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
