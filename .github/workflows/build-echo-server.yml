@@ -48,7 +48,6 @@ jobs:
         with:
           push: true
           context: "{{defaultContext}}:images/echo-server"
-          file: Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -87,7 +86,8 @@ jobs:
           IMAGE: ${{ needs.build.outputs.image }}
           DIGEST: ${{ needs.build.outputs.digest }}
         run: |
-          docker run "${IMAGE}@${DIGEST}"
+          # We need a timeout because it's a server.
+          timeout 3 docker pull "${IMAGE}@${DIGEST}"
 
           # See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions for log types.
           echo "::warning ${IMAGE}@${DIGEST}"
